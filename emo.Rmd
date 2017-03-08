@@ -1,0 +1,326 @@
+## Marja Eliisa Holm, 8.3.2017, marja.hytonen@helsinki.fi
+
+**Abstract**
+
+The Achievement Emotions Questionnaire - Mathematics (AEQ-M; Pekrun, Goetz, & Frenzel, 2005) is a student-report rating inquiry designed to identify emotions in mathematics situations. This study aim to analyze structure of the class-related emotions measured by AEQ-M among nationally representative Finnish sample (n=1412).Confirmatory factor analyses (CFA) showed that the ordinary six factor model described data quite well after two modifications. 
+
+
+**1. Introduction**
+
+Peixoto et al. (2015) found that the Achievement Emotions Questionnaire (AEQ) is an effective instrument to assess Portuguese adolescents (age range 10-13 years) achievement emotions towards mathematics classes. The class version assesses boredom, hopelessness, anger, anxiety, enjoyment, pride, hope and shame. Confirmatory factor analyses and descriptive statistics confirm the reliability and internal validity of the AEQ among this sample. However, there are some points that should be noted. The first CFAs showed either poor fit to the data or identification problems. These analyses also showed very strong correlations between most of the emotions (Pride, Hope and Enjoyment, and Anxiety and Shame), suggesting that there were multicollinearity problems between these variables. Hence, Peixoto et al. selecting one emotion for each of these pairs makes the instrument shorter without substantial loss of information and avoids problems for subsequent analyses that can be produced by multicollinearity. 
+
+Also results of the Pekrun et al. (2011) indicated that there were also quite high correlations between latent variables, although they model was questionable as all items in same situations were letting correlated.
+As Peixoto et al. (2015) used the achievement emotions questionnaire, there is no study specifically conducted to validate the AEQ-M which related to mathematics. Thus the main purpose of this research was to adapt and validate the AEQ-M in order to assess Finnish adolescents' emotions towards mathematics.
+
+**1.2. Present study**
+
+Since a comprehensive analysis of the structure the Achievement Emotions Questionnaire-Mathematics (AEQ-M) (Pekrun et al., 2005) is lacking, the current study aims to analyze structure of the AEQ-M by confirmatory factor analyses (CFA) among nationally representative Finnish sample. 
+In this analysis, we focused the six class-related emotions in mathematics such as enjoyment, pride, anger, anxiety, shame, and boredom. 
+
+Our research problem is to find out what kind of structure could describe class-related emotions in mathematics among 8th grade adolescents in Finland. Based on previous studies we hypothesized that some of these six class-related emotions showed high correlation (Peixoto et al., 2015; Pekrun et al., 2011) and thus should be combined.
+
+Here you can find the link to my data wrangling script in which this emotion data is created: https://github.com/marjaholm/IODS-final/blob/master/create_emo.R.
+
+
+**2. Description of data and its variables**
+
+**2.1. Participants**
+
+The sample consists of 1412 grade eight students from 27 compulsory schools in five different provinces in Finland. A geographically representative sample of the schools was compiled as follows: the schools from the statistical list were divided into five provinces, and the systematic sample of the schools was selected at the regular interval. From large provinces there were more schools than from small ones (Southern Finland: 8 schools, Central Finland: 9 schools, Eastern Finland: 4 schools, Oulu: 3 schools and Lapland: 3 schools). In addition, the study sample consisted of different sizes of municipalities and cities. The schools' size also varied representatively from small (n=65) to large schools (n=658).
+
+
+**2.2. Variables and procedures**
+
+Our central variables are class related emotions in mathematics (enjoyment, pride, anger, anxiety, shame, and boredom) measured by Achievement Emotions Questionnaire-Mathematics (AEQ-M) (Pekrun et al., 2005).  
+
+The AEQ-M assesses students' typical (trait-like) emotional experiences in relation to mathematics class. The AEQ-M contains 20 class-related items measuring six different trait-like emotions: enjoyment (4 items), pride (2 items), anger (4 items), anxiety (4 items), shame (3 items), and boredom (3 items). Respondents were asked to express their emotions on the five-point Likert Scale ranging from 1 (strongly disagree) to 5 (strongly agree). Noted that emotion items and the mean scores of the class-related scales were used as variables in this study.
+
+The English AEQ-M was translated into Finnish by a bilingual expert.  The AEQ-M was pilot tested in a Finnish school. Thirty students from two classes and ten students with special needs took part in the pilot questionnaire and had an opportunity to offer feedback for their teachers and researcher. Any negative feedback did not occur regarding the language, structure, and the fulfillment of the AEQ-M, and the students reported that they understand the AEQ-M very well.
+
+Students completed the AEQ-M at the end of a mathematics lesson in about 30 minutes. Before the implementation of AEQ-M students were assured that their answers will be treated confidentially. All completed AEQ-Ms were closed envelope and returned to the researchers by regular mail.
+
+
+**2.3. Preliminary analysis**
+
+The missing data of emotions (0.5 %) items were replaced statistically by using expectation-maximization (EM) (Dempster, Laird & Rubin, 1977).
+
+Noted that we have named our variables as follows:
+
+EMOx= items relating different class-related emotions 
+
+JOC=Class-related enjoyment scale 
+
+PRC=Class-related pride scale
+
+AGC=Class-related anger scale
+
+AXC=Class-related anxiety scale
+
+SHC=class-related shame scale
+
+BOC=class-related boredom scale
+
+**3. Features of the data**
+
+First, we load our data of the class-related emotions data and look at the structure and dimensions (See Table 1).
+
+```{r}
+ec<-read.table("ec.csv")
+dim(ec)
+summary(ec)
+```
+
+Table 1. Dimension and structure of the class-related emotions in mathematics. Noted that EMOX= different emotion items in relation to class; JOC=Class-related enjoyment scale; PRC=Class-related pride scale; AGC=Class-related anger scale; AXC=Class-related anxiety scale; SHC=class-related shame scale; BOC=class-related boredom scale
+
+**3.1. Distributions of the variables**
+
+Next, we explore the distributions of the class-related emotion scales using Kernal density plots. As figure 1 presents, most of variables showed non-normal distributions. However, most of the distributions of variables such as class-related enjoyment,  class-related pride, class-related anxiety, and class-related boredom were relatively symmetrical. Because the sample size is relatively large, the discrepancy in assumptions was not considered strong enough to refuse the use of parameter statistics. Furthermore, the preliminary analysis showed that the skewness and kurtosis values for all emotion scales  were within criterion parameters for univariate normality (|2.0| and |7.0|), respectively) (Curran, West, & Finch, 1996). 
+
+
+
+
+```{r}
+
+
+# Histograms and density lines 
+
+
+par(mfrow=c(2, 3)) 
+colnames <- dimnames(ec)[[2]] 
+
+for (i in 21:26) { 
+
+    hist(ec[,i], xlim=c(0, 7), breaks=15, main=colnames[i], probability=TRUE, col="gray", border="white") 
+
+    d <- density(ec[,i]) 
+    lines(d, col="red")} 
+
+```
+
+Figure 1. Distributions of the variables. Noted that JOC=Class-related enjoyment scale; PRC=Class-related pride scale; AGC=Class-related anger scale; AXC=Class-related anxiety scale; SHC=class-related shame scale; BOC=class-related boredom scale.
+
+**3.2. Correlation between scales**
+
+Next, we investigated correlations between emotion scales. As table 2 presented, the correlation between some of the emotion scales were quite high such as class-related anger and  boredom (r= .71) and class-related anxiety and anger (r = .70). Confirming the hypothesis that some of the emotions should be combined.
+
+```{r}
+x <- ec[21:26]
+ cor(x, y=NULL) 
+```
+
+Table 2. Correlation between class-related emotion scales. 
+
+**4. Data analysis**
+
+
+Confirmatory factor analysis (CFA) was used to explore the factor structure of the class-related emotions. In this analysis, the MLM estimation method was chosen due to its robustness against violations of multivariate normality. Please noted that we used alongside the ML estimation, which is specified in a program by default. 
+
+We used different indexes to evaluate model fit including the chi-square test, the comparative fit index (CFI), the Tucker-Lewis index (TLI), and the root-mean square error of approximation (RMSEA). Conventionally accepted criteria are that CFIs and TLIs of .95 or greater and a RMSEA of .05 or less are indicative of excellent model fit, with a CFI of .90 or above and a RMSEA of .08 or less are indicative of adequate model fit (Brown and Cudeck 1993; Hu & Bentler, 1998).
+
+In order to improve these both models, the modification indices of items were examined step by step. We also used Chi^2 difference test with Satorra-Bentler scaling correction to determine which data describe data best (Satorra and Bentler, 2010).
+ 
+
+**5. Results**
+
+As Table 3 showed, this ordinary class-related emotion model (C1) showed quite reasonable model fit, Chi^2(155) = 1131.395, p < .001, CFI = 0.908, TLI = 0.888, RMSEA = .067, SRMR = .062 (Scaling correction factor=1.321). The figure 2 illustrated this model graphically. It should be also noted that some latent correlations between variables was quite high such as class-related anger and boredom (r=.93); suggesting that these latent emotions should be combined.
+
+```{R}
+library(lavaan)
+
+em.model <- 
+'lJOc =~ EMO1+EMO5+EMO8+EMO12
+lPRc=~ EMO18+EMO19
+lAGc=~ EMO9+EMO13+EMO15+EMO17
+lAXc=~ EMO2+EMO7+EMO3+EMO4
+lSHc=~ EMO10+EMO50+EMO16
+lBOc=~ EMO11+EMO6+EMO14
+'
+
+fit <- cfa(em.model, data = ec, estimator="MLM")
+
+# display summary output
+summary(fit, fit.measures=TRUE, standardized=TRUE)
+
+```
+Table 3. Factor structure of the ordunary class-related emotions
+
+
+
+```{r}
+
+library(semPlot)
+semPaths(fit, "std", title = FALSE, curvePivot = TRUE, sizeLat =5, sizeInt = 1, sizeMan = 4)
+
+title("Ordinary class-related emotion model", line = -20)
+
+```
+
+Figure 2. The model of the Class-related emotions
+
+
+In order to improve the model fit, the modification indices of items were examined. As you can see in Table 5, the modification indices showed that residual covariance related to anxiety item emo7 ("I worry if the material is much too difficult for me.") and anger item emo15 ("I get angry because the material in mathematics is so difficult.") was high (MI = 154.931, eps= .335). Hence, we constructed two models: model C2 in which these two items were correlated and model C3 in which item emo7 was eliminated.
+ 
+ 
+```{r}
+modindices(fit, minimum.value=50)
+```
+Table5. First modification indices.
+
+```{R}
+#this model items e16 and e7 correlated
+library(lavaan)
+
+em.model <- 
+'lJOc =~ EMO1+EMO5+EMO8+EMO12
+lPRc=~ EMO18+EMO19
+lAGc=~ EMO9+EMO13+EMO15+EMO17
+lAXc=~ EMO2+EMO7+EMO3+EMO4
+lSHc=~ EMO10+EMO50+EMO16
+lBOc=~ EMO11+EMO6+EMO14
+EMO15 ~~  EMO7
+'
+
+fit <- cfa(em.model, data = ec, estimator="MLM")
+
+# display summary output
+#summary(fit, fit.measures=TRUE, standardized=TRUE)
+```
+
+```{R}
+#this model we eliminate e7
+library(lavaan)
+
+em.model <- 
+'lJOc =~ EMO1+EMO5+EMO8+EMO12
+lPRc=~ EMO18+EMO19
+lAGc=~ EMO9+EMO13+EMO15+EMO17
+lAXc=~ EMO2+EMO3+EMO4
+lSHc=~ EMO10+EMO50+EMO16
+lBOc=~ EMO11+EMO6+EMO14
+
+'
+
+fit <- cfa(em.model, data = ec, estimator="MLM")
+
+# display summary output
+#summary(fit, fit.measures=TRUE, standardized=TRUE)
+#modindices(fit, minimum.value=50)
+```
+
+As very long output, we only described the main results. The model c2 in which these items (emo7 and emo15) were correlated showed quite good model fit, Chi^2(154) = 1011.772, p < .001, CFI = 0.917, TLI = 0.898, RMSEA = .063, SRMR = .061 (Scaling correction factor=1.315), and even significantly better model fit than the ordinary model based on the Chi^2 difference test (Chi^2(N=1412, 1)=73.09, <.001). However, the model C3 in which this item emo7 was eliminated showed also good model fit, Chi^2(137) = 811.377, p < .001, CFI = 0.931, TLI = 0.914, RMSEA = .059, SRMR = .054 (Scaling correction factor=1.327) and even significantly better model fit than the previous c2 model (Chi^2(1412, 17)=208.31, <.001). Hence, this model C3 in which item emo7 was eliminate was selected. Noted that model in which item emo15 was eliminated showed poorer model fit.
+
+In the next step, anger item e17 ("I get irritated by my math class.") cross-loaded positively on boredom factor (MI = 124.253, epc = 1.191) and positively on the enjoyment factor (MI = 149.606, epc = -.547) (See Table 6).  Hence, this item might even cause high correlation between anger and boredom factors.  As this item seems to be very problematic, we eliminated this item emo17. After this elimination the model c4 showed significantly better model fit, Chi^2(120) = 626.989, p < .001, CFI = 0.941, TLI = 0.925, RMSEA = .055, SRMR = .050 (Scaling correction factor= 1.312) than previous model c3 based on the Chi^2 test (Chi^2(N=1412, 17)=192.78, <.001). Noted that the model in which this item was eliminated showed even better model fit than models in which this item loaded on enjoyment and/or anger factor.  Thus, we selected the model in which also item e17 was eliminated. 
+
+Table 7 showed information about this c4 model such as model fit indices and correlation between latent factors. Noted that the correlation between anger and boredom factor was now lower than ordinary model, but still quite high (.867).
+
+
+
+```{R}
+#this model we eliminate e7
+library(lavaan)
+modindices(fit, minimum.value=50)
+```
+Table 6. Second modification indices. 
+
+```{R}
+library(lavaan)
+
+em.model <- 
+'lJOc =~ EMO1+EMO5+EMO8+EMO12
+lPRc=~ EMO18+EMO19
+lAGc=~ EMO9+EMO13+EMO15
+lAXc=~ EMO2+EMO3+EMO4
+lSHc=~ EMO10+EMO50+EMO16
+lBOc=~ EMO11+EMO6+EMO14
+
+'
+
+fit <- cfa(em.model, data = ec, estimator="MLM")
+
+# display summary output
+summary(fit, fit.measures=TRUE, standardized=TRUE)
+#modindices(fit, minimum.value=50)
+```
+Table 7. Model in which item emo7 and emo17 was eliminated.
+
+Hence, we created model c5 in which the factor anger and boredom was combined (we did not print this output). This model showed also good model fit, Chi^2(125) = 741.867, p < .001, CFI = 0.929, TLI = 0.913, RMSEA = .059, SRMR = .056 (1.312). However, it showed poorer model fit than c4 models as Chi^2 test was significant (Chi^2(1412, 5)=114.878, <.001) indicating that models with six factors should be selected. 
+
+In summary, we found that the class-related emotions showed good model fit after we have eliminated two items (emo7 and emo17). Figure 3 presented the final model of the class related emotions.
+
+
+
+```{R}
+library(lavaan)
+
+em.model <- 
+'lJOc =~ EMO1+EMO5+EMO8+EMO12
+lPRc=~ EMO18+EMO19
+lAGc=~ EMO9+EMO13+EMO15+EMO11+EMO6+EMO14
+lAXc=~ EMO2+EMO3+EMO4
+lSHc=~ EMO10+EMO50+EMO16
+
+
+'
+
+fit <- cfa(em.model, data = ec, estimator="MLM")
+
+# display summary output
+#summary(fit, fit.measures=TRUE, standardized=TRUE)
+#modindices(fit, minimum.value=50)
+```
+
+```{R}
+library(lavaan)
+
+em.model <- 
+'lJOc =~ EMO1+EMO5+EMO8+EMO12
+lPRc=~ EMO18+EMO19
+lAGc=~ EMO9+EMO13+EMO15
+lAXc=~ EMO2+EMO3+EMO4
+lSHc=~ EMO10+EMO50+EMO16
+lBOc=~ EMO11+EMO6+EMO14
+
+'
+
+fit <- cfa(em.model, data = ec, estimator="MLM")
+
+# display summary output
+#summary(fit, fit.measures=TRUE, standardized=TRUE)
+#modindices(fit, minimum.value=50)
+
+library(semPlot)
+semPaths(fit, "std", title = FALSE, curvePivot = TRUE, sizeLat =5, sizeInt = 1, sizeMan = 4)
+
+title("class-related emotion model in which items emo7 and emo17 were eliminated", line = -20)
+
+```
+Figure 3. The modified final model of the class-related emotions in which item emo7 and emo17 were eliminated. 
+
+
+**6. Discussion and conclusion**
+
+Our study found that six-factor model of the class-related emotions described Finnish data better than model in which most highly correlated anger and boredom factors were combined into one factor. Hence, our hypothesis is not quite true. Thus, our results showed that the emotions related in mathematics class situation, must be considered separately although they are correlated with each other highly. These findings expand previous findings that showed that multi-dimensional achievement emotions described data well (Peixoto et al., 2015; Pekrun et al., 2011), although high correlation between variable.   
+
+In future, we need to understand the structure of these emotions in other situations as well suc as learning and test situations.
+
+
+
+**References**
+
+Browne, M.W., & Cudeck, R. (1993). Alternative ways of assessing model fit. In K. A. Bollen, & J. S. Long (Eds.), Testing structural equation models (pp. 136-162). Beverley Hills, CA: Sage.
+
+Curran, P. J., West, S. G., & Finch, J. F. (1996). The robustness of test statistics to nonnormality and specification error in confirmatory factor analysis. Psychological Methods, 1, 16-29. doi:10.1037//1082-989X.1.1.16
+
+
+Dempster, A. P., Laird, N. M., & Rubin, D. B. (1977). Maximum likelihood from incomplete data via the EM algorithm. Journal of the Royal Statistical Society Series B, 39, 1-38. doi:10.2307/2984875
+
+Hu, L.-T., & Bentler, P. M. (1998). Fit indices in covariance structure modeling: Sensitivity to underparameterized model misspecification. Psychological Methods, 3(4), 424-453.
+
+Peixoto, F.,  Mata, L., Monteiro, V.,  Sanches, C., & Pekrun, R. (2015). European Journal of Developmental Psychology, 12, 472-481. doi: 10.1080/17405629.2015.1040757. 
+
+Pekrun, R., Goetz, T., & Frenzel, A. C. (2005). Academic Emotions Questionnaire - Mathematics (AEQ-M) - User's manual. Munich, Germany: University of Munich, Department of Psychology.
+
+Pekrun, R., Goetz, T., Frenzel, A. C., Barchfeld, P., & Perry, R.  P. (2011). Measuring emotions in students' learning and performance: The Achievement Emotions Questionnaire (AEQ). Contemporary Educational Psychology, 36(1), 36-48. doi: 10.1016/j.cedpsych.2010.10.002. 
+
+Satorra, A. and Bentler, P. M. 2010.  Psychometrika, 75, 243-248. Ensuring positiveness of the scaled chi-square test statistic. doi:10.1007/s11336-009-9135-y
+
